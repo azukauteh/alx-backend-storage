@@ -1,0 +1,15 @@
+// Check if the database name is provided as a command-line option
+if (typeof dbName === 'undefined') {
+    print("Usage: mongo --eval 'var dbName=\"your_database_name\"' 2-insert_document.js");
+    quit();
+}
+// Connect to the MongoDB server
+conn = new Mongo();
+db = conn.getDB(dbName);
+documentToInsert = {
+    name: "Holberton school"
+};
+// Insert the document into the 'school' collection
+db.school.insert(documentToInsert);
+print("Document inserted successfully in the 'school' collection.");
+quit();
