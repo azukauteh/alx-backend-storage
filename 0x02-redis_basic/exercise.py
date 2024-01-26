@@ -32,28 +32,22 @@ class Cache:
         self._redis.set(key, data)
         return (key)
 
-    def get_str(self, key: str) -> Union[str, None]:
+    def get_str(self, key: str) -> str:
         """
-        Retrieve a string value from Redis using the provided key.
-
+        Calls get method with fn as a byte to string function
         Args:
-            key (str): The key associated with the value in Redis.
-
+            key (str): key to search for
         Returns:
-            Union[str, None]: The string value retrieved from Redis,
-            or None if the key does not exist.
+            value (str): value mapped to the provide `key`
         """
-        return self.get(key, fn=lambda d: d.decode("utf-8"))
+        return self.get(key, lambda s: s.decode('utf-8'))
 
-    def get_int(self, key: str) -> Union[int, None]:
+    def get_int(self, key: str) -> int:
         """
-        Retrieve an integer value from Redis using the provided key.
-
+        Calls get method with fn as a byte to int function
         Args:
-            key (str): The key associated with the value in Redis.
-
+            key (str): key to search for
         Returns:
-            Union[int, None]: The integer value retrieved from Redis,
-            or None if the key does not exist.
+            value (int): value mapped to the provide `key`
         """
-        return self.get(key, fn=int)
+        return self.get(key, lambda n: int(n))
